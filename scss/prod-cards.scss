@@ -1,0 +1,113 @@
+// prod-cards.scss -> css/prod-cards.css
+@use "base" as b with ($emit-global: false);
+
+// Grid ------------------------------------------------------------------
+.prod-grid {
+  @include b.container;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: b.space(5);
+  padding-bottom: b.space(16);
+
+  // Each cell is a size container, so a card can respond to the space it
+  // is given (a container query) instead of to the viewport.
+  &__item {
+    container-type: inline-size;
+  }
+}
+
+// Card ------------------------------------------------------------------
+.card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  overflow: hidden;
+  background: b.clr(white);
+  border: 1px solid b.clr(line);
+  border-radius: 0.5rem;
+  transition: border-color 0.15s;
+
+  // :has() — highlight the card while its button is hovered
+  &:has(.card__btn:not(:disabled):hover) {
+    border-color: b.clr(ink);
+  }
+
+  &__swatch {
+    aspect-ratio: 4 / 3;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: b.space(2);
+    padding: b.space(4);
+  }
+
+  &__name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  &__source {
+    color: b.clr(muted);
+  }
+
+  &__specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: b.space(1) b.space(4);
+    font-size: 0.9375rem;
+
+    div {
+      display: flex;
+      gap: b.space(1);
+    }
+
+    dt { color: b.clr(muted); }
+    dd { margin: 0; font-weight: 600; }
+  }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: b.space(3);
+    margin-top: auto;
+    padding-top: b.space(3);
+  }
+
+  &__price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__btn {
+    @include b.button;
+  }
+
+  // Sold-out state
+  &--sold-out &__swatch {
+    filter: saturate(0.25);
+  }
+
+  // Wide cell -> side-by-side layout
+  @container (min-width: 26rem) {
+    grid-template-columns: 40% 1fr;
+    grid-template-rows: none;
+
+    .card__swatch {
+      aspect-ratio: auto;
+      min-height: 100%;
+    }
+  }
+}
+
+// One modifier per dye, generated from the map in base.scss ------------------
+@each $name, $tones in b.$dyes {
+  .card--#{$name} .card__swatch {
+    @include b.skein($name);
+  }
+}

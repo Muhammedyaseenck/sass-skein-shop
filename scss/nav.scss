@@ -1,0 +1,173 @@
+// nav.scss -> css/nav.css
+@use "base" as b with ($emit-global: false);
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: b.clr(white);
+  border-bottom: 1px solid b.clr(line);
+
+  &__inner {
+    @include b.container;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: b.space(3);
+    min-height: 4rem;
+  }
+
+  // Brand ---------------------------------------------------------------
+  &__brand {
+    order: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: b.space(2);
+    margin-right: auto;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    @include b.focus-ring;
+
+    &::before {
+      content: "";
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      @include b.skein("indigo");
+    }
+  }
+
+  // Basket --------------------------------------------------------------
+  &__cart {
+    order: 2;
+    @include b.button($min-height: 2.5rem, $pad-y: b.space(1), $pad-x: b.space(3));
+  }
+
+  &__count {
+    min-width: 1.5rem;
+    padding-inline: b.space(1);
+    border-radius: 999px;
+    background: b.clr(weld);
+    color: b.clr(ink);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  // Mobile menu toggle (no JS: checkbox + sibling selectors) --------------
+  &__toggle {
+    @include b.visually-hidden;
+  }
+
+  &__burger {
+    order: 3;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+
+    span,
+    span::before,
+    span::after {
+      display: block;
+      width: 1.4rem;
+      height: 2px;
+      background: b.clr(ink);
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    span {
+      position: relative;
+    }
+
+    span::before,
+    span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+    }
+
+    span::before { top: -7px; }
+    span::after  { top: 7px; }
+  }
+
+  &__toggle:focus-visible + &__burger {
+    outline: 3px solid b.clr(ink);
+    outline-offset: 2px;
+  }
+
+  &__toggle:checked + &__burger span {
+    background: transparent;
+
+    &::before { top: 0; transform: rotate(45deg); }
+    &::after  { top: 0; transform: rotate(-45deg); }
+  }
+
+  // Links ---------------------------------------------------------------
+  &__links {
+    order: 4;
+    flex-basis: 100%;
+    display: none;
+    flex-direction: column;
+    padding-bottom: b.space(3);
+  }
+
+  &__toggle:checked ~ &__links {
+    display: flex;
+  }
+
+  &__link {
+    position: relative;
+    padding: b.space(2) b.space(3);
+    border-radius: 0.375rem;
+    font-weight: 500;
+    text-decoration: none;
+    @include b.focus-ring;
+
+    &:hover {
+      background: b.clr(paper);
+    }
+
+    &[aria-current="page"] {
+      font-weight: 700;
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: auto b.space(3) 0.25rem;
+        height: 3px;
+        background: b.clr(weld);
+      }
+    }
+  }
+
+  // Desktop -------------------------------------------------------------
+  @include b.bp(md) {
+    &__brand {
+      margin-right: 0;
+    }
+
+    &__burger {
+      display: none;
+    }
+
+    &__links {
+      order: 2;
+      flex-basis: auto;
+      display: flex;
+      flex-direction: row;
+      gap: b.space(1);
+      margin-left: b.space(6);
+      margin-right: auto;
+      padding-bottom: 0;
+    }
+
+    &__cart {
+      order: 3;
+    }
+  }
+}

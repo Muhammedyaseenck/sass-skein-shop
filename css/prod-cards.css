@@ -1,0 +1,189 @@
+.prod-grid {
+  width: min(100% - 2rem, 72rem);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: 1.25rem;
+  padding-bottom: 4rem;
+}
+.prod-grid__item {
+  container-type: inline-size;
+}
+
+.card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #d3d8e0;
+  border-radius: 0.5rem;
+  transition: border-color 0.15s;
+}
+.card:has(.card__btn:not(:disabled):hover) {
+  border-color: #1d2140;
+}
+.card__swatch {
+  aspect-ratio: 4/3;
+}
+.card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+.card__name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.card__source {
+  color: #565c75;
+}
+.card__specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  font-size: 0.9375rem;
+}
+.card__specs div {
+  display: flex;
+  gap: 0.25rem;
+}
+.card__specs dt {
+  color: #565c75;
+}
+.card__specs dd {
+  margin: 0;
+  font-weight: 600;
+}
+.card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+.card__price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.card__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.25rem;
+  border: 2px solid #1d2140;
+  border-radius: 0.375rem;
+  background: #1d2140;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.card__btn:hover:not(:disabled) {
+  background: transparent;
+  color: #1d2140;
+}
+.card__btn:disabled {
+  background: #d3d8e0;
+  border-color: #d3d8e0;
+  color: #565c75;
+  cursor: not-allowed;
+}
+.card__btn:focus-visible {
+  outline: 3px solid #1d2140;
+  outline-offset: 3px;
+}
+.card--sold-out .card__swatch {
+  filter: saturate(0.25);
+}
+@container (min-width: 26rem) {
+  .card {
+    grid-template-columns: 40% 1fr;
+    grid-template-rows: none;
+  }
+  .card .card__swatch {
+    aspect-ratio: auto;
+    min-height: 100%;
+  }
+}
+
+.card--indigo .card__swatch {
+  background-color: #2f3f8f;
+  background-image: repeating-linear-gradient(118deg, transparent 0 7px, #1f2b66 7px 8px), repeating-linear-gradient(62deg, #4a5cb0 0 6px, #2f3f8f 6px 12px);
+  box-shadow: inset 0 -1.5rem 2rem -1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card--madder .card__swatch {
+  background-color: #b5403a;
+  background-image: repeating-linear-gradient(118deg, transparent 0 7px, #86292a 7px 8px), repeating-linear-gradient(62deg, #cf5b53 0 6px, #b5403a 6px 12px);
+  box-shadow: inset 0 -1.5rem 2rem -1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card--weld .card__swatch {
+  background-color: #e2b23c;
+  background-image: repeating-linear-gradient(118deg, transparent 0 7px, #b8892a 7px 8px), repeating-linear-gradient(62deg, #eec664 0 6px, #e2b23c 6px 12px);
+  box-shadow: inset 0 -1.5rem 2rem -1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card--fern .card__swatch {
+  background-color: #5f8a55;
+  background-image: repeating-linear-gradient(118deg, transparent 0 7px, #3f6339 7px 8px), repeating-linear-gradient(62deg, #7ba86f 0 6px, #5f8a55 6px 12px);
+  box-shadow: inset 0 -1.5rem 2rem -1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card--walnut .card__swatch {
+  background-color: #5b4636;
+  background-image: repeating-linear-gradient(118deg, transparent 0 7px, #3d2d22 7px 8px), repeating-linear-gradient(62deg, #755b48 0 6px, #5b4636 6px 12px);
+  box-shadow: inset 0 -1.5rem 2rem -1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card--cochineal .card__swatch {
+  background-color: #a33a63;
+  background-image: repeating-linear-gradient(118deg, transparent 0 7px, #7a2547 7px 8px), repeating-linear-gradient(62deg, #bf5580 0 6px, #a33a63 6px 12px);
+  box-shadow: inset 0 -1.5rem 2rem -1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card--onion .card__swatch {
+  background-color: #c9772b;
+  background-image: repeating-linear-gradient(118deg, transparent 0 7px, #9a5518 7px 8px), repeating-linear-gradient(62deg, #de9448 0 6px, #c9772b 6px 12px);
+  box-shadow: inset 0 -1.5rem 2rem -1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card--logwood .card__swatch {
+  background-color: #5e3a7e;
+  background-image: repeating-linear-gradient(118deg, transparent 0 7px, #40255c 7px 8px), repeating-linear-gradient(62deg, #7a55a0 0 6px, #5e3a7e 6px 12px);
+  box-shadow: inset 0 -1.5rem 2rem -1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card--avocado .card__swatch {
+  background-color: #c98f8b;
+  background-image: repeating-linear-gradient(118deg, transparent 0 7px, #a06a66 7px 8px), repeating-linear-gradient(62deg, #dba9a4 0 6px, #c98f8b 6px 12px);
+  box-shadow: inset 0 -1.5rem 2rem -1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card--iron .card__swatch {
+  background-color: #5d6470;
+  background-image: repeating-linear-gradient(118deg, transparent 0 7px, #40454f 7px 8px), repeating-linear-gradient(62deg, #7a818d 0 6px, #5d6470 6px 12px);
+  box-shadow: inset 0 -1.5rem 2rem -1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card--woad .card__swatch {
+  background-color: #6f9ac4;
+  background-image: repeating-linear-gradient(118deg, transparent 0 7px, #4c78a3 7px 8px), repeating-linear-gradient(62deg, #8fb3d6 0 6px, #6f9ac4 6px 12px);
+  box-shadow: inset 0 -1.5rem 2rem -1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card--blackbean .card__swatch {
+  background-color: #3f8484;
+  background-image: repeating-linear-gradient(118deg, transparent 0 7px, #2a6060 7px 8px), repeating-linear-gradient(62deg, #5fa0a0 0 6px, #3f8484 6px 12px);
+  box-shadow: inset 0 -1.5rem 2rem -1.5rem rgba(0, 0, 0, 0.25);
+}
